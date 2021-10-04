@@ -15,11 +15,11 @@ const Home: NextPage = () => {
     peso: number;
     cor: string;
   }>({
-    message: "Seu peso",
-    indice: "15,5",
-    altura: 1.5,
-    cor: "red",
-    peso: 1.6,
+    message: "",
+    indice: "",
+    altura: 0,
+    cor: "",
+    peso: 0,
   });
   const handlerOnSubmitImc = (event: FormEvent) => {
     event.preventDefault();
@@ -102,7 +102,7 @@ const Home: NextPage = () => {
           ></Image>
         </Center>
         <HStack color={imcValue?.cor}>
-          <Text fontSize="xl">{imcValue?.message}:</Text>
+          {imcValue?.message && <Text fontSize="xl">{imcValue?.message}:</Text>}
           <Text>{imcValue?.indice}</Text>
         </HStack>
         <VStack as="form" onSubmit={handlerOnSubmitImc} width="72">
