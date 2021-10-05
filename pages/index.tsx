@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/button";
-import { Input } from "@chakra-ui/input";
+import { Input, InputGroup } from "@chakra-ui/input";
 import { Center, Heading, HStack, Text, VStack } from "@chakra-ui/layout";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -96,8 +96,8 @@ const Home: NextPage = () => {
             alt="Caculo de Imc"
             layout="intrinsic"
             objectFit="cover"
-            width="240"
-            height="240"
+            width="160"
+            height="160"
             src={ImcImage}
           ></Image>
         </Center>
@@ -105,20 +105,37 @@ const Home: NextPage = () => {
           {imcValue?.message && <Text fontSize="xl">{imcValue?.message}:</Text>}
           <Text>{imcValue?.indice}</Text>
         </HStack>
-        <VStack as="form" onSubmit={handlerOnSubmitImc} width="72">
+        <VStack
+          as="form"
+          onSubmit={handlerOnSubmitImc}
+          width="72"
+          borderWidth="2px"
+          padding="8"
+          rounded="lg"
+        >
           <Heading>Calcular IMC</Heading>
-          <Input
-            type="text"
-            onChange={handleronChangeImcAltura}
-            required
-            placeContent="Sua Altura"
-          ></Input>
-          <Input
-            type="text"
-            onChange={handleronChangeImcPeso}
-            required
-            placeContent="Seu Peso"
-          ></Input>
+          <InputGroup flexDir="column">
+            <Text margin="2" fontWeight="bold" fontSize="md">
+              Sua Altura
+            </Text>
+            <Input
+              type="text"
+              onChange={handleronChangeImcAltura}
+              required
+              placeholder="Sua Altura"
+            ></Input>
+          </InputGroup>
+          <InputGroup flexDir="column" gap="4">
+            <Text marginX="2" marginBottom="2" fontWeight="bold" fontSize="md">
+              Seu peso
+            </Text>
+            <Input
+              type="text"
+              onChange={handleronChangeImcPeso}
+              required
+              placeholder="Seu Peso"
+            ></Input>
+          </InputGroup>
           <Button width="full" type="submit">
             Calcular IMC
           </Button>
