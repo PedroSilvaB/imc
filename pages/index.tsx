@@ -59,14 +59,17 @@ const Home: NextPage = () => {
       }));
     }
   };
+  function format(element: HTMLInputElement, max: number, decimal: number = 2) {
+    let value: string = element.value.slice(0, max);
+    value = value.replace(/[\D]+/g, "");
+    const regex = new RegExp(`([0-9]{${decimal}})$`, "g");
+    value = value.replace(regex, ",$1");
+    element.value = value;
+  }
   const handleronChangeImcAltura = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    event.currentTarget.value = event.currentTarget.value
-      .replace(/\w/g, (value) =>
-        value == "." ? value : value.replace(/\D/, "")
-      )
-      .slice(0, 7);
+    format(event.currentTarget, 4);
     const altura = parseFloat(event.currentTarget.value.replace(/,/g, "."));
     console.log(altura);
     setImcValue((prevState) => ({ ...prevState, altura }));
@@ -74,11 +77,7 @@ const Home: NextPage = () => {
   const handleronChangeImcPeso = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    event.currentTarget.value = event.currentTarget.value
-      .replace(/\w/g, (value) =>
-        value == "." ? value : value.replace(/\D/, "")
-      )
-      .slice(0, 7);
+    format(event.currentTarget, 7, 3);
     const peso = parseFloat(event.currentTarget.value.replace(/,/g, "."));
     console.log(peso);
     setImcValue((prevState) => ({ ...prevState, peso }));
@@ -101,7 +100,7 @@ const Home: NextPage = () => {
             src={ImcImage}
           ></Image>
         </Center>
-        <HStack color={imcValue?.cor}>
+        <HStack height="8" color={imcValue?.cor}>
           {imcValue?.message && <Text fontSize="xl">{imcValue?.message}:</Text>}
           <Text>{imcValue?.indice}</Text>
         </HStack>
